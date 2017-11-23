@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>来自北冰洋的风</title>
+    <style>
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,
+        fieldset,input,textarea,p,blockquote,th,td {
+            margin:0;
+            padding:0;
+        }
+        table{
+            border-collapse:collapse;
+            border-spacing:0;
+        }
+        fieldset,img {
+            border:0;
+        }
+        address,caption,cite,code,dfn,em,strong,th,var {
+            font-style:normal;
+            font-weight:normal;
+        }
+        ol,ul {
+            list-style:none;
+        }
+        caption,th {
+            text-align:left;
+        }
+        h1,h2,h3,h4,h5,h6 {
+            font-size:100%;
+            font-weight:normal;
+        }
+        q:before,q:after {
+            content:'';
+        }
+        abbr,acronym { border:0;
+        }
+        @charset "utf-8";
+        *{
+            margin: 0px;
+            padding: 0px;
+
+        }
+        a{
+            text-decoration: none;
+            color: #000000;
+            font-size:15px;
+            /*字体*/
+        }
+        li{
+            list-style: none;
+        }
+        input,img{
+            border: none;
+        }
+
+
+
+        /* 补充 视频模块 */
+        #video1{
+            position: fixed;
+            width: 100%;
+            height: 650px;
+            background:rgba(0, 0, 0, 0.3);
+            z-index: 300;
+            display: none;
+        }
+        #video1 .shipin{
+            position: absolute;
+            width: 885px;
+            height: 539px;
+            z-index: 301;
+            background: #000;
+            left: 50%;
+            top:50%;
+            border:8px solid #ffc666;
+            transform: translate(-50%,-50%)
+        }
+        #video1 .shipin .sp{
+            left: 0;
+            top: 0;
+            position: absolute;
+            z-index: 302;
+        }
+
+        #video1 .closebtn{
+            text-align: center;
+            line-height: 50px;
+            font-size: 48px;
+            font-weight: 100;
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #ffc666;
+            color: #fff;
+            top: -8px;
+            right:-58px;
+            transition: all 0.2s
+        }
+        #video1 .closebtn:hover{
+            color: red;
+            font-size: 50px;
+        }
+
+
+    </style>
+    <script src="jquery-1.12.4.min.js"></script>
+</head>
+<body>
+
+<button class="btn" src="1.mp4">播放视频</button>
+
+<!--点击按钮弹出视频框-->
+<div id="video1">
+    <div class="shipin">
+        <div class="iconfont icon-icon-close  closebtn" allowFullScreen="true">Ⅹ</div>
+        <video class="media" src=""   width="885" height="539" controls>你的浏览器暂不支持该种格式视频</video>
+        <!--<embed src="" allowFullScreen="true" quality="high" width="885" height="539" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>-->
+    </div>
+</div>
+
+<!--点击弹出视频框的js-->
+<script>
+
+
+
+addVideo($(".btn"))
+
+
+
+
+var media = $(".media")[0];
+var audioTimer = null;
+
+//    视频框引用函数
+//    *
+//    * @param {any} $ele   $对象
+//    */
+    function addVideo($ele) {
+        $ele.click(function () {
+
+            $("#video1").fadeIn(1000).find("embed").attr("src",$(this).attr("src") )
+            $("#video1").fadeIn(1000).find("video").attr("src",$(this).attr("src") )
+
+        })
+
+        $("#video1 .closebtn").click(function () {
+            console.log(1)
+            $("#video1").hide()
+            pause()
+            var audioTimer = null;
+        })
+    }
+var media = $(".media")[0];
+var audioTimer = null;
+//播放暂停切换
+function playAudio() {
+    if(media.paused) {
+        play();
+    } else {
+        pause();
+    }
+}
+//播放
+function play() {
+    media.play();
+    $('#play').html('Pause');
+}
+
+//暂停
+function pause() {
+    media.pause();
+    $('#play').html('Play');
+}
+
+
+
+</script>
+
+</body>
+</html>

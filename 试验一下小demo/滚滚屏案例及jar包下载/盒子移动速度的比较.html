@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<style type="text/css">
+		div{
+			width: 100px;
+			height: 100px;
+			background-color: blue;
+			position: absolute;
+			left: 100px;
+		}
+		.box0{
+			top: 100px;
+		}
+		.box1{
+			top: 250px;
+		}
+		.box2{
+			top: 400px;
+		}
+		.box3{
+			top: 550px;
+		}
+		.box4{
+			top: 700px;
+		}
+		.box5{
+			top: 850px;
+		}
+
+	</style>
+	<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.easie.js" type="text/javascript" charset="utf-8"></script> 
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$(".box0").animate({"left": 1000},3000);
+		$(".box1").animate({"left": 1000},3000,"linear");/*linear表示动画匀速运动，所以如果做这个的话，我们就需要用这样的一种形式。另外我们也可以使用jquery.easie.js插件的形式来做。看以下例子，但是记住要导"插件"哟！*/
+		$(".box2").animate({"left": 1000},3000,"easieEaseInOut");
+		$(".box3").animate({"left": 1000},3000,"easieEaseInQuad");
+		$(".box4").animate({"left": 1000},3000,"easieEaseInOutQuint");
+		$(".box5").animate({"left": 1000},3000,"easieEaseOutCubic");
+	});
+	</script>
+</head>
+<body>
+	<div class="box0"></div>
+	<div class="box1"></div>
+	<div class="box2"></div>
+	<div class="box3"></div>
+	<div class="box4"></div>
+	<div class="box5"></div>
+</body>
+</html>

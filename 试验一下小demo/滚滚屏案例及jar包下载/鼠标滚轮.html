@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8" ></script>
+	<script src="js/jquery.mousewheel.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//得到鼠标滚轮的事件处理
+			var nowPage = 0;
+			$(document).mousewheel(function(event,delta){
+				console.log(delta);//滚轮往上滚delta=1，往下滚delta=-1
+				if(delta == 1){
+					$("h1").html("往上滚了");
+				}
+				if(delta == -1){
+					$("h1").html("往下滚了");
+				}
+
+				//问题？
+				//鼠标向上滚delta=1，是数值增大的过程，而用户的习惯是序号减小的过程
+				//鼠标向下滚delta=-1，是数值减小的过程，而用户的习惯是序号增大的过程
+				//解决：相反数
+				nowPage = nowPage - delta;
+				if(nowPage<0){
+					nowPage=0;
+				}
+				if(nowPage>3){
+					nowPage=3;
+				}
+				console.log(nowPage);
+				$("h1").html(nowPage);				
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1></h1>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>来自北冰洋的风</title>
+</head>
+<body>
+    <div>
+        <!-- <img id="pic1" src="images/mofa_01.png" alt=""> -->
+        <img id="pic2" src="images/shiqi (1).png" alt="">
+    </div>
+    <script>
+        var pic1=document.getElementById("pic1")
+        var pic2=document.getElementById("pic2")
+        var count1=0
+        var count2=0
+    setInterval(function(){
+        count1++
+        pic1.src="images/mofa_0"+count+".png"
+        if(count1==12){
+            count1=1
+        }
+    },100)
+    setInterval(function(){
+        count2++
+        pic2.src="images/shiqi ("+count2+").png"
+        if(count2==32){
+            count2=1
+        }
+    },100)
+
+
+
+
+
+
+
+
+
+
+/**
+ * 变速运动最终优化,可以同时设置多种样式变动,兼容透明度和层级函数,以及变速玩可以增加一个函数事件
+ * @param element  要进行animate的元素标签
+ * @param datas    需要变动的属性的对象集合
+ * @param fn      运动完毕后添加的回调函数
+ */
+function animate(element, datas, fn) {
+
+    clearInterval(element.timer);
+    element.timer = setInterval(function () {
+
+        //1 设置假设条件：假设本轮定时器执行后可以进行清除
+        var flag = true;
+
+        //先对获取到的数据进行遍历，对每一组数据进行相同操作即可
+        for (var k in datas) {
+            //针对透明度和层级进行单独处理
+            if (k == "opacity") {
+                var styleName = k;
+                var target = datas[k] * 100;
+
+                //opacity是c3属性，使用getStyle获取后不会出现"auto"
+                //js中的小数进行加减计算会出现精度问题
+                var current = getStyle(element, styleName) * 100;
+                var step = (target - current) / 10;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                current = current + step;
+                //设置透明度时，除以设置过的对应倍数
+                element.style[styleName] = current / 100;
+
+                if (current != target) {
+                    flag = false;
+                }
+            } else if (k == "zIndex") {
+                //层级为整数值，所以不需要设置运动效果,直接设置为指定值即可
+                element.style.zIndex = datas[k];
+            } else {
+                //styleName： 实际上是k
+                //target： 实际上是obj[k]
+                var styleName = k;
+                var target = datas[k];
+
+                //下面这段代码可以让某一个样式运动到指定的位置
+                var current = parseInt(getStyle(element, styleName)) || 0;
+                var step = (target - current) / 10;
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                current = current + step;
+                element.style[styleName] = current + "px";
+
+                //此位置原来是书写清除定时器的代码位置，但是某个样式运动完毕并不能进行清除，其他样式可能没到，使用假设成立法解决
+                //2 找到假设失败的条件：如果某个样式运动时没有到达指定位置，阻止清除
+                if (current != target) {
+                    flag = false;
+                }
+            }
+        }
+        //需要整体检测，只有每个样式都到达了指定位置才可以设置清除
+        //3 验证flag的值
+        if (flag) {
+            clearInterval(element.timer);
+            if (typeof fn == "function") {
+                fn();
+            }
+        }
+
+    }, 20);
+}
+    </script>
+</body>
+</html>

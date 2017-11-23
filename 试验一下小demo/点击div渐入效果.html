@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="jquery-1.12.4.min.js">
+</script>
+<style>
+    div{
+        width: 600px;
+        height: 100px;
+        display: none;
+        background: red;
+    }
+    #div2{
+        background: pink
+    }
+    #div3{
+        background: gold
+    }
+</style>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#div1").fadeIn();
+    $("#div2").fadeIn("slow");
+    $("#div3").fadeIn(3000);
+  });
+});
+</script>
+</head>
+
+<body>
+<p>以下实例演示了 fadeIn() 使用了不同参数的效果。</p>
+<button>点击淡入 div 元素。</button>
+<br><br>
+<div id="div1" ></div><br>
+<div id="div2" ></div><br>
+<div id="div3" ></div>
+
+</body>
+</html>

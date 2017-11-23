@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8" ></script>
+	<script src="js/jquery.mousewheel.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.easie.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//得到鼠标滚轮的事件处理
+			var nowPage = 0;
+			$(document).mousewheel(function(event,delta){
+				//console.log(delta);滚轮往上滚delta=1，往下滚delta=-1
+				//问题？
+				//鼠标向上滚delta=1，是数值增大的过程，而用户的习惯是序号减小的过程
+				//鼠标向下滚delta=-1，是数值减小的过程，而用户的习惯是序号增大的过程
+				//解决：相反数
+				nowPage = nowPage - delta;
+				if(nowPage<0){
+					nowPage=0;
+				}
+				if(nowPage>4){
+					nowPage=4;
+				}
+				console.log(nowPage);	
+				//让container进行动画	
+				$(".container").animate({"top": nowPage * -100 +"%"}, 1000,"easieEaseInQuint");
+				/*easieEaseInQuint这个属性就是引用了jquery.easie.js插件所起到的效果，当然也可以使用innear属性，Jquery默认的匀速效果。*/
+			});
+		});
+	</script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		html,body{
+			height: 100%;
+			/* 没有滚动条设置 overflow:hidden*/
+			overflow: hidden;
+		}
+		.container{
+			width: 100%;
+			height: 100%;
+			position: absolute;/* absolute定位脱离了标准流，不具备将宽度扩展为父盒子的100%，所以需要重写宽度 */
+			top: 0%;
+			left: 0;
+		}
+		.page{
+			width: 100%;
+			height: 100%;
+			background-color: pink;
+		}
+		.page1{background-color: orange}
+		.page2{background-color: purple}
+		.page3{background-color: green}
+		.page4{background-color: blue}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="page page0">0</div>
+		<div class="page page1">1</div>
+		<div class="page page2">2</div>
+		<div class="page page3">3</div>
+		<div class="page page4">4</div>
+	</div>
+</body>
+</html>
